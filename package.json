@@ -1,14 +1,17 @@
 {
   "name": "project-tracker",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --base-href .",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prepare-prod": "npm run build && xcopy www dist /s /y && xcopy electron dist /y",
+    "electron": "concurrently \"ng serve\" \"electron www\"",
+    "package": "npm run prepare-prod && electron-packager dist --overwrite --asar --platform=win32 --arch=x64 --icon=assets/icon.ico --prune=true --out=release-builds --version-string.CompanyName=PwC --version-string.FileDescription=\"Project Tracker\" --version-string.ProductName=\"Project Tracker\""
   },
   "private": true,
   "dependencies": {
@@ -36,6 +39,7 @@
     "@types/node": "~6.0.60",
     "codelyzer": "~3.2.0",
     "electron": "^1.7.9",
+    "electron-packager": "^10.1.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
