@@ -28,8 +28,8 @@ if (isSecondInstance) {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 640,
-    height: 535,
+    width: 1000,
+    height: 585,
     resizable: false,
     fullscreen: false
   })
@@ -41,9 +41,6 @@ function createWindow() {
     mode: 'undocked'
   })
 
-  mainWindow.webContents.on('will-navigate', ev => {
-    ev.preventDefault()
-  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {

@@ -26,8 +26,8 @@ function createWindow() {
   var scriptDir = `${path.join(app.getAppPath(), 'scripts')}`
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 640,
-    height: 535,
+    width: 1000,
+    height: 585,
     resizable: false,
     fullscreen: false,
     show: false
