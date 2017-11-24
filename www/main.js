@@ -1,6 +1,6 @@
 const electron = require('electron')
 
-//const shell = require('node-powershell');
+const electronGoogleOauth = require('electron-google-oauth');
 
 // Module to control application life.
 const app = electron.app
@@ -8,6 +8,23 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
 let mainWindow = null
+
+const googleOauthbrowserWindowParams = {
+  'use-content-size': true,
+  center: true,
+  show: true,
+  resizable: false,
+  'always-on-top': true,
+  'standard-window': true,
+  'auto-hide-menu-bar': true,
+  'node-integration': false
+};
+
+const googleOauth = electronGoogleOauth(googleOauthbrowserWindowParams);
+
+app.googleOauth = function() {
+  return googleOauth;
+}
 
 const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) => {
   if (mainWindow) {
@@ -40,7 +57,6 @@ function createWindow() {
   mainWindow.webContents.openDevTools({
     mode: 'undocked'
   })
-
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {

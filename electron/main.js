@@ -1,10 +1,24 @@
 const electron = require('electron')
 
+const electronGoogleOauth = require('electron-google-oauth');
+
 const path = require('path')
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+
+const googleOauthbrowserWindowParams = {
+'use-content-size': true,
+center: true,
+show: true,
+resizable: false,
+'always-on-top': true,
+'standard-window': true,
+'auto-hide-menu-bar': true,
+'node-integration': false
+};
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -21,7 +35,10 @@ const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) 
 if (isSecondInstance) {
   app.quit()
 }
-
+const googleOauth = electronGoogleOauth(googleOauthbrowserWindowParams);
+app.googleOauth = function() {
+  return googleOauth;
+}
 function createWindow() {
   var scriptDir = `${path.join(app.getAppPath(), 'scripts')}`
   // Create the browser window.
@@ -40,16 +57,10 @@ function createWindow() {
     mainWindow.show()
   })
 
-  mainWindow.webContents.on('will-navigate', ev => {
-    ev.preventDefault()
-  })
-
 
   //mainWindow.loadURL(`http://localhost:4200`)
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
-
-
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {

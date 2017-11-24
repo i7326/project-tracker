@@ -2,5 +2,8 @@
   "name": "project-tracker",
   "productName": "Project Tracker",
   "version": "1.0.0-alpha.1",
-  "main": "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "electron-google-oauth": "^2.0.0"
+  }
 }
